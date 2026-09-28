@@ -20,7 +20,13 @@ O número do arquivo segue o campo `meses` em `variaveis/casal.json`.
 
 Em cerca de um minuto a Action recria o `index.html` e o `NN-meses.html`. Os dois ficam iguais, com as fotos e as fontes dentro do arquivo. Apague as imagens de exemplo quando for usar as de vocês — senão elas entram na carta.
 
-A página publicada fica em [romastefale.github.io/declaracao-meses](https://romastefale.github.io/declaracao-meses/).
+A página publicada fica em [romastefale.github.io/declaracao-meses](https://romastefale.github.io/declaracao-meses/) depois deste único ajuste, que o GitHub só deixa fazer na mão:
+
+1. Abra **Settings → Pages** do repositório.
+2. Em **Build and deployment**, escolha **Deploy from a branch**.
+3. Branch **main**, pasta **/ (root)** e salve.
+
+O `index.html` já está pronto, então o site aparece em seguida. Enquanto isso, o arquivo [06-meses.html](https://github.com/romastefale/declaracao-meses/blob/main/06-meses.html) já pode ser baixado do repositório.
 
 O botão **Baixar** entrega o monobloco. Abrir esse arquivo no celular ou no computador mostra a mesma carta, com as imagens, sem depender do GitHub.
 

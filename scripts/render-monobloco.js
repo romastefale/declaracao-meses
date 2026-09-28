@@ -474,6 +474,7 @@ function esc(texto) {
     .replace(/"/g, "&quot;");
 }
 
+/** @param {Fontes} fonts */
 function fontesCss(fonts) {
   /** @type {Array<[string, string, string]>} */
   const faces = [
