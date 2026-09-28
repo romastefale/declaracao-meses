@@ -1,0 +1,48 @@
+name: Montar monobloco
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "variaveis/**"
+      - "imagens/**"
+      - "fontes/**"
+      - "scripts/**"
+      - ".github/workflows/montar.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: montar-monobloco
+  cancel-in-progress: true
+
+jobs:
+  montar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Embutir fotos e gerar a carta
+        run: node scripts/montar.mjs
+
+      - name: Atualizar index e o arquivo de meses
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- index.html
+          git add -- ./*-meses.html
+          git add -u -- ./*-meses.html
+          if git diff --cached --quiet; then
+            echo "A carta já estava em dia."
+          else
+            git commit -m "Atualiza a carta monobloco [skip ci]"
+            git push
+          fi

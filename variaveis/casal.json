@@ -1,0 +1,13 @@
+{
+  "meses": 6,
+  "remetente": {
+    "nome": "Renato",
+    "genero": "masculino"
+  },
+  "destinatario": {
+    "nome": "Helena",
+    "genero": "feminino"
+  },
+  "recado": "",
+  "repositorio": "https://github.com/romastefale/declaracao-meses"
+}
