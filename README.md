@@ -3,9 +3,7 @@
 Uma carta de namoro em **um único HTML**. As fotos não ficam soltas: o GitHub Actions lê a pasta `imagens`, embute cada arquivo dentro da página e publica duas cópias idênticas:
 
 - `index.html` — o que o GitHub Pages mostra
-- `06-meses.html` (ou `00` … `12`) — o mesmo conteúdo, pronto para baixar e abrir em qualquer aparelho, mesmo sem internet
-
-O número do arquivo segue o campo `meses` em `variaveis/casal.json`.
+- `Piero-Lucas.index` — o mesmo conteúdo, no nome de quem escreve e de quem recebe, para baixar e guardar. O nome segue o primeiro nome do remetente e o nome do destinatário.
 
 ## Como personalizar
 
@@ -18,7 +16,7 @@ O número do arquivo segue o campo `meses` em `variaveis/casal.json`.
 3. Se quiser legenda, acrescente o nome do arquivo em [`imagens/legendas.json`](imagens/legendas.json).
 4. Suba a mudança para a branch `main`.
 
-Em cerca de um minuto a Action recria o `index.html` e o `NN-meses.html`. Os dois ficam iguais, com as fotos e as fontes dentro do arquivo. Apague as imagens de exemplo quando for usar as de vocês — senão elas entram na carta.
+Em cerca de um minuto a Action recria o `index.html` e o arquivo `.index`. Os dois ficam iguais, com as fotos e as fontes dentro. Um arquivo de imagem vazio é ignorado.
 
 A página publicada fica em [romastefale.github.io/declaracao-meses](https://romastefale.github.io/declaracao-meses/) depois deste único ajuste, que o GitHub só deixa fazer na mão:
 
@@ -26,12 +24,12 @@ A página publicada fica em [romastefale.github.io/declaracao-meses](https://rom
 2. Em **Build and deployment**, escolha **Deploy from a branch**.
 3. Branch **main**, pasta **/ (root)** e salve.
 
-O `index.html` já está pronto, então o site aparece em seguida. Enquanto isso, o arquivo [06-meses.html](https://github.com/romastefale/declaracao-meses/blob/main/06-meses.html) já pode ser baixado do repositório.
+O `index.html` já está pronto, então o site aparece em seguida. O arquivo para guardar sai pelo botão Baixar, com o nome de quem escreve e de quem recebe, terminado em `.index`.
 
 O botão **Baixar** entrega o monobloco. Abrir esse arquivo no celular ou no computador mostra a mesma carta, com as imagens, sem depender do GitHub.
 
 ## O que não editar à mão
 
-`index.html` e `NN-meses.html` são gerados. Na próxima subida de nomes ou fotos eles são reescritos. Mude a carta pelo JSON, pelas imagens ou, se quiser outro texto-base, por `scripts/render-monobloco.js`.
+`index.html` e o `.index` são gerados. Na próxima subida de nomes ou fotos eles são reescritos. Mude a carta pelo JSON, pelas imagens ou, se quiser outro texto-base, por `scripts/render-monobloco.js`.
 
 Este repositório é público para o GitHub Pages gratuito funcionar. Quando os nomes e as fotos forem reais, o link também será público. O arquivo baixado é o que você envia no privado.

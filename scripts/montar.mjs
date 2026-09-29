@@ -35,7 +35,16 @@ function listarImagens() {
   if (!fs.existsSync(pasta)) return [];
   return fs
     .readdirSync(pasta)
-    .filter((nome) => MIMES[path.extname(nome).toLowerCase()])
+    .filter((nome) => {
+      const ext = path.extname(nome).toLowerCase();
+      if (!MIMES[ext]) return false;
+      const tamanho = fs.statSync(path.join(pasta, nome)).size;
+      if (tamanho < 32) {
+        console.warn(`Ignorada, arquivo vazio ou inválido: imagens/${nome}`);
+        return false;
+      }
+      return true;
+    })
     .sort((a, b) => a.localeCompare(b, "pt-BR"))
     .map((nome) => {
       const ext = path.extname(nome).toLowerCase();
@@ -67,11 +76,10 @@ const html = renderMonobloco({
   },
 });
 
-const arquivo = nomeArquivo(Number(config.meses));
+const arquivo = nomeArquivo(config);
 for (const nome of fs.readdirSync(raiz)) {
-  if (/^\d{2}-meses\.html$/.test(nome) && nome !== arquivo) {
-    fs.unlinkSync(path.join(raiz, nome));
-  }
+  const antigo = /^\d{2}-meses\.html$/.test(nome) || (nome.endsWith(".index") && nome !== arquivo);
+  if (antigo) fs.unlinkSync(path.join(raiz, nome));
 }
 
 fs.writeFileSync(path.join(raiz, "index.html"), html);

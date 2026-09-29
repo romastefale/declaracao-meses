@@ -129,9 +129,18 @@ export function lerMeses(valor) {
   return n;
 }
 
-/** @param {number} meses */
-export function nomeArquivo(meses) {
-  return `${String(meses).padStart(2, "0")}-meses.html`;
+/** @param {{ remetente: { nome: string }, destinatario: { nome: string } }} config */
+export function nomeArquivo(config) {
+  const primeiro = limpaNome(config.remetente.nome).split(/\s+/)[0];
+  const destino = limpaNome(config.destinatario.nome);
+  /** @param {string} valor */
+  const parte = (valor) =>
+    valor
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^A-Za-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  return `${parte(primeiro)}-${parte(destino)}.index`;
 }
 
 /** @param {string} texto */
@@ -187,7 +196,7 @@ export function modeloDaCarta(config) {
 
   return {
     titulo: TITULOS[meses],
-    arquivo: nomeArquivo(meses),
+    arquivo: nomeArquivo(config),
     olho: meses === 0 ? "o primeiro capítulo" : "comemoração de namoro",
     nomeR,
     nomeD,
@@ -534,10 +543,6 @@ export function renderMonobloco(entrada) {
     ? `<section class="vidro"><h2>E tem isto, que é só nosso</h2><p>${esc(modelo.recado)}</p></section>`
     : "";
 
-  const repo = modelo.repo
-    ? ` <a href="${esc(modelo.repo)}">Trocar nomes e fotos.</a>`
-    : "";
-
   const script =
     "<script>(function(){var nome=" +
     JSON.stringify(modelo.arquivo) +
@@ -578,9 +583,7 @@ ${cartaCss}
       <p class="seu">${esc(modelo.seu)}</p>
     </section>
     <section class="baixar">
-      <p class="nota">Esta carta cabe num único arquivo. As fotos vão junto e ela abre em qualquer lugar que abra HTML, mesmo sem internet.</p>
-      <button type="button" class="baixar-btn" id="baixar">Baixar ${esc(modelo.arquivo)}</button>
-      <p class="rodape">Os nomes moram em variaveis/casal.json. As fotos, na pasta imagens. Ao subir uma mudança, esta página e o arquivo para baixar são refeitos juntos.${repo}</p>
+      <button type="button" class="baixar-btn" id="baixar">Baixar</button>
     </section>
   </main>
 </div>
